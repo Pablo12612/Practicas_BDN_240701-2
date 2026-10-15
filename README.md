@@ -5,6 +5,7 @@ Repositorio de las Practicas Realizadas en la Materia de Base de Datos en la Nub
 #### Docente: M.T.I.  Marco A. Ramírez Hernández
 
 Periodo: Septiembre - Diciembre 2026
+Autor: Pablo Martinez Gaspar
 
 --- 
 
