@@ -1,0 +1,540 @@
+{
+  "schema_version": 1,
+  "diagram_type": "erd",
+  "meta": {
+    "title": "Modelo EERD · db_test_7b",
+    "locale": "es",
+    "output": ".archify/erd-db-test-7b-20261015-131200/eerd-db-test-7b.html",
+    "quality_profile": "standard",
+    "subtitle": "8 tablas · 6 relaciones entre tablas · conteos leídos de INSERT INTO",
+    "views": [
+      {
+        "id": "nucleo",
+        "label": "Usuarios y carrito",
+        "focus": [
+          "tb_users",
+          "tb_carts"
+        ]
+      },
+      {
+        "id": "catalogo",
+        "label": "Catálogo",
+        "focus": [
+          "tb_products",
+          "tbc_categories"
+        ]
+      },
+      {
+        "id": "relaciones",
+        "label": "Relaciones y propiedad",
+        "focus": [
+          "tbd_products_categories",
+          "tbd_products_users_providers",
+          "tbd_users_wishlist_products"
+        ]
+      },
+      {
+        "id": "auditoria",
+        "label": "Auditoría",
+        "focus": [
+          "tb_logs"
+        ]
+      }
+    ]
+  },
+  "layout": {
+    "mode": "grid",
+    "gapX": 64,
+    "gapY": 42,
+    "entityW": 330
+  },
+  "entities": [
+    {
+      "id": "tb_users",
+      "label": "tb_users · 7 filas",
+      "tag": "identidad",
+      "row": 0,
+      "col": 0,
+      "sublabel": "Total registros: 7",
+      "attributes": [
+        {
+          "name": "ID",
+          "type": "int unsigned [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "email",
+          "type": "varchar(100) [NN]",
+          "key": "uk"
+        },
+        {
+          "name": "nick",
+          "type": "varchar(50) [NN]",
+          "key": "uk"
+        },
+        {
+          "name": "password",
+          "type": "varchar(255) [NN]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NULL]"
+        },
+        {
+          "name": "last_login",
+          "type": "datetime [NULL]"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NULL]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tb_carts",
+      "label": "tb_carts · 0 filas",
+      "tag": "identidad",
+      "row": 1,
+      "col": 0,
+      "sublabel": "Total registros: 0",
+      "attributes": [
+        {
+          "name": "ID",
+          "type": "int unsigned [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "user_ID",
+          "type": "int unsigned [NN]",
+          "key": [
+            "uk",
+            "fk"
+          ],
+          "references": "tb_users.ID"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NULL]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NULL]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tb_products",
+      "label": "tb_products · 5,008 filas",
+      "tag": "catalogo",
+      "row": 0,
+      "col": 1,
+      "sublabel": "Total registros: 5,008",
+      "attributes": [
+        {
+          "name": "ID",
+          "type": "int unsigned [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "SKU",
+          "type": "varchar(50) [NN]",
+          "key": "uk"
+        },
+        {
+          "name": "name",
+          "type": "varchar(250) [NN]"
+        },
+        {
+          "name": "description",
+          "type": "text [NULL]"
+        },
+        {
+          "name": "current_price",
+          "type": "decimal(10,2) [NN]"
+        },
+        {
+          "name": "current_stock",
+          "type": "int unsigned [NN]"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NULL]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NN]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tbc_categories",
+      "label": "tbc_categories · 100 filas",
+      "tag": "catalogo",
+      "row": 1,
+      "col": 1,
+      "sublabel": "Total registros: 100",
+      "attributes": [
+        {
+          "name": "ID",
+          "type": "int [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "name",
+          "type": "varchar(100) [NN]"
+        },
+        {
+          "name": "description",
+          "type": "varchar(255) [NULL]"
+        },
+        {
+          "name": "sup_id_category",
+          "type": "int [NULL]",
+          "key": "fk",
+          "references": "tbc_categories.ID"
+        },
+        {
+          "name": "status",
+          "type": "int [NULL]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tbd_products_categories",
+      "label": "tbd_products_categories · 4,993 filas",
+      "tag": "relaciones",
+      "row": 0,
+      "col": 2,
+      "sublabel": "Total registros: 4,993",
+      "attributes": [
+        {
+          "name": "product_ID",
+          "type": "int [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "category_ID",
+          "type": "int [NN]",
+          "key": [
+            "pk",
+            "fk"
+          ],
+          "references": "tbc_categories.ID"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NN]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NN]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tbd_products_users_providers",
+      "label": "tbd_products_users_providers · 0 filas",
+      "tag": "relaciones",
+      "row": 1,
+      "col": 2,
+      "sublabel": "Total registros: 0",
+      "attributes": [
+        {
+          "name": "user_ID",
+          "type": "int unsigned [NN]",
+          "key": [
+            "pk",
+            "fk"
+          ],
+          "references": "tb_users.ID"
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned [NN]",
+          "key": [
+            "pk",
+            "fk"
+          ],
+          "references": "tb_products.ID"
+        },
+        {
+          "name": "type_ownership",
+          "type": "enum('Owner','Reseller','Distributor') [NULL]"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NN]"
+        },
+        {
+          "name": "avalaible_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NN]"
+        }
+      ],
+      "width": 480
+    },
+    {
+      "id": "tbd_users_wishlist_products",
+      "label": "tbd_users_wishlist_products · 0 filas",
+      "tag": "relaciones",
+      "row": 2,
+      "col": 2,
+      "sublabel": "Total registros: 0",
+      "attributes": [
+        {
+          "name": "user_ID",
+          "type": "int unsigned [NN]",
+          "key": [
+            "pk",
+            "fk"
+          ],
+          "references": "tb_users.ID"
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned [NN]",
+          "key": [
+            "pk",
+            "fk"
+          ],
+          "references": "tb_products.ID"
+        },
+        {
+          "name": "status",
+          "type": "bit(1) [NN]"
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "last_update",
+          "type": "datetime [NN]"
+        }
+      ],
+      "width": 330
+    },
+    {
+      "id": "tb_logs",
+      "label": "tb_logs · 10,120 filas",
+      "tag": "auditoria",
+      "row": 0,
+      "col": 3,
+      "sublabel": "Total registros: 10,120",
+      "attributes": [
+        {
+          "name": "ID",
+          "type": "int unsigned [NN]",
+          "key": "pk"
+        },
+        {
+          "name": "table_name",
+          "type": "varchar(80) [NN]"
+        },
+        {
+          "name": "table_operation",
+          "type": "enum('Create','Read','Update','Delete') [NULL]"
+        },
+        {
+          "name": "db_user",
+          "type": "varchar(80) [NN]"
+        },
+        {
+          "name": "operation_date",
+          "type": "datetime [NN]"
+        },
+        {
+          "name": "table_description",
+          "type": "text [NN]"
+        },
+        {
+          "name": "operation_status",
+          "type": "bit(1) [NULL]"
+        }
+      ],
+      "width": 470
+    }
+  ],
+  "relationships": [
+    {
+      "id": "rel_1",
+      "from": "tb_users",
+      "to": "tb_carts",
+      "label": "ID → user_ID",
+      "fromCardinality": "one",
+      "toCardinality": "one",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": false
+    },
+    {
+      "id": "rel_2",
+      "from": "tbc_categories",
+      "to": "tbd_products_categories",
+      "label": "ID → category_ID",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": true
+    },
+    {
+      "id": "rel_3",
+      "from": "tb_products",
+      "to": "tbd_products_users_providers",
+      "label": "ID → product_ID",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": true
+    },
+    {
+      "id": "rel_4",
+      "from": "tb_users",
+      "to": "tbd_products_users_providers",
+      "label": "ID → user_ID",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": true
+    },
+    {
+      "id": "rel_5",
+      "from": "tb_products",
+      "to": "tbd_users_wishlist_products",
+      "label": "ID → product_ID",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": true
+    },
+    {
+      "id": "rel_6",
+      "from": "tb_users",
+      "to": "tbd_users_wishlist_products",
+      "label": "ID → user_ID",
+      "fromCardinality": "one",
+      "toCardinality": "many",
+      "fromOptional": false,
+      "toOptional": true,
+      "identifying": true
+    }
+  ],
+  "cards": [
+    {
+      "dot": "violet",
+      "title": "Relación recursiva",
+      "items": [
+        "tbc_categories.sup_id_category → tbc_categories.ID (FK autorreferente; nullable; ON DELETE SET NULL, ON UPDATE CASCADE). Archify ERD no permite conectar una entidad consigo misma, por eso se documenta aquí."
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tb_carts · defaults y generación",
+      "items": [
+        "ID: AUTO_INCREMENT",
+        "status: DEFAULT b'1'",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: ON UPDATE CURRENT_TIMESTAMP"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tb_logs · defaults y generación",
+      "items": [
+        "ID: AUTO_INCREMENT",
+        "operation_date: DEFAULT CURRENT_TIMESTAMP",
+        "operation_status: DEFAULT b'1'"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tb_products · defaults y generación",
+      "items": [
+        "ID: AUTO_INCREMENT",
+        "current_price: DEFAULT '0.00'",
+        "current_stock: DEFAULT '0'",
+        "status: DEFAULT b'1'",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: ON UPDATE CURRENT_TIMESTAMP"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tb_users · defaults y generación",
+      "items": [
+        "ID: AUTO_INCREMENT",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "status: DEFAULT b'1'"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tbd_products_categories · defaults y generación",
+      "items": [
+        "status: DEFAULT b'1'",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: ON UPDATE CURRENT_TIMESTAMP"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tbd_products_users_providers · defaults y generación",
+      "items": [
+        "status: DEFAULT b'1'",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: ON UPDATE CURRENT_TIMESTAMP"
+      ]
+    },
+    {
+      "dot": "cyan",
+      "title": "tbd_users_wishlist_products · defaults y generación",
+      "items": [
+        "status: DEFAULT b'1'",
+        "creation_date: DEFAULT CURRENT_TIMESTAMP",
+        "last_update: ON UPDATE CURRENT_TIMESTAMP"
+      ]
+    },
+    {
+      "dot": "slate",
+      "title": "Restricciones del respaldo",
+      "items": [
+        "No hay restricciones CHECK declaradas. La nulabilidad aparece junto al tipo y las claves PK, FK y UNIQUE se marcan en cada atributo.",
+        "tb_logs.table_name almacena nombres de tabla, pero no tiene una FOREIGN KEY declarada."
+      ]
+    }
+  ]
+}
