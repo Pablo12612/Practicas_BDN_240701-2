@@ -1,0 +1,45 @@
+
+services:
+  postgres_pablo:
+    image: postgres:15-alpine
+    container_name: postgres_pablo
+    restart: always
+    environment:
+      POSTGRES_USER: pablo
+      POSTGRES_PASSWORD: "240701"
+      POSTGRES_DB: db_test_7b
+    ports:
+      - "40701:5432"
+    volumes:
+      - postgres_data_pablo:/var/lib/postgresql/data
+
+  mysql_pablo:
+    image: mysql:8.0
+    container_name: mysql_pablo
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: "240701"
+      MYSQL_DATABASE: db_test_7b
+      MYSQL_USER: pablo
+      MYSQL_PASSWORD: "240701"
+    ports:
+      - "40702:3306"
+    volumes:
+      - mysql_data_pablo:/var/lib/mysql
+
+  pgadmin_pablo:
+    image: dpage/pgadmin4:7.8
+    container_name: pgadmin_pablo
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pablo@proyectos-integradores-7b-itiid.tech
+      PGADMIN_DEFAULT_PASSWORD: "240701"
+      PGADMIN_CONFIG_SERVER_MODE: "True"
+    ports:
+      - "40700:80"
+    depends_on:
+      - postgres_pablo
+
+volumes:
+  postgres_data_pablo:
+  mysql_data_pablo:
