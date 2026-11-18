@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-10-22T05:14:58.941Z",
+  "specification": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\data-dictionary-res-20-20261021-231133\\candidate.archify.md",
+    "sha256": "4af1fb4dcd2551bee9596b7e221edfbf938a64640bcbf5287b37f3a77a913218",
+    "bytes": 2085
+  },
+  "artifact": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\data-dictionary-res-20-20261021-231133\\resumen-diccionario-res-20.html"
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\data-dictionary-res-20-20261021-231133\\resumen-diccionario-res-20.finalize.json",
+    "summaryReceipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\data-dictionary-res-20-20261021-231133\\resumen-diccionario-res-20.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}
