@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "receiptId": "a39dbdd1-1ec2-4e82-ac48-ab0490ef7c48",
+  "status": "current",
+  "command": "deliver",
+  "type": "erd",
+  "input": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\candidate.json",
+  "output": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.html",
+  "specification": {
+    "sha256": "bc7169d42ceb9d673d898ad580e14ab552cbb3dd988a4ce968cd8e7bd3e2b90f",
+    "bytes": 12873
+  },
+  "artifact": {
+    "sha256": "19119445ff53184f78ac8c36a962287c384fa4518d9e52da5888abf04b4ce603",
+    "bytes": 860327
+  }
+}

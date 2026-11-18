@@ -1,0 +1,2623 @@
+{
+  "source": "db_test_7b.sql",
+  "tables": [
+    {
+      "id": "tb_buyer_orders",
+      "name": "tb_buyer_orders",
+      "meaning": "Pedidos de vendedores",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "seller_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Vendedor relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tb_buyer_orders_ibfk_1",
+            "columns": [
+              "seller_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "subtotal",
+          "type": "decimal(12,2)",
+          "spec": "decimal(12,2) NOT NULL DEFAULT '0.00'",
+          "meaning": "Importe antes de cargos",
+          "nullable": false,
+          "auto": false,
+          "default": "'0.00'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "shipping_cost",
+          "type": "decimal(12,2)",
+          "spec": "decimal(12,2) NOT NULL DEFAULT '0.00'",
+          "meaning": "Costo del envío",
+          "nullable": false,
+          "auto": false,
+          "default": "'0.00'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "fulfillment_status",
+          "type": "enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned')",
+          "spec": "enum('Pending','Accepted','Preparing','Sent','Delivered','Canceled','Returned') NOT NULL DEFAULT 'Pending'",
+          "meaning": "Estado de preparación y entrega",
+          "nullable": false,
+          "auto": false,
+          "default": "'Pending'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "tb_buyer_orders_ibfk_1",
+          "columns": [
+            "seller_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": [
+        "(`subtotal` >= 0)",
+        "(`shipping_cost` >= 0)"
+      ]
+    },
+    {
+      "id": "tb_carts",
+      "name": "tb_carts",
+      "meaning": "Carritos",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": {
+            "constraint": "tb_carts_ibfk_1",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": true,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "user_ID"
+        ]
+      ],
+      "foreign": [
+        {
+          "constraint": "tb_carts_ibfk_1",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tb_logs",
+      "name": "tb_logs",
+      "meaning": "Historial de cambios",
+      "count": 10129,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "table_name",
+          "type": "varchar(80)",
+          "spec": "varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Tabla donde ocurrió la acción",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "table_operation",
+          "type": "enum('Create','Read','Update','Delete')",
+          "spec": "enum('Create','Read','Update','Delete') CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci DEFAULT NULL",
+          "meaning": "Acción realizada",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "db_user",
+          "type": "varchar(80)",
+          "spec": "varchar(80) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Cuenta que ejecutó la acción",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "operation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de la acción",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "table_description",
+          "type": "text",
+          "spec": "text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Resumen del cambio",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "operation_status",
+          "type": "bit(1)",
+          "spec": "bit(1) DEFAULT b'1'",
+          "meaning": "Estado del registro de auditoría",
+          "nullable": true,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [],
+      "foreign": [],
+      "checks": []
+    },
+    {
+      "id": "tb_people",
+      "name": "tb_people",
+      "meaning": "Perfiles personales",
+      "count": 0,
+      "columns": [
+        {
+          "name": "person_ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Perfil personal relacionado",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned DEFAULT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": true,
+          "fk": {
+            "constraint": "fk_people_users",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "courtesy_title",
+          "type": "varchar(20)",
+          "spec": "varchar(20) DEFAULT NULL",
+          "meaning": "Tratamiento de cortesía",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "given_names",
+          "type": "varchar(150)",
+          "spec": "varchar(150) NOT NULL",
+          "meaning": "Nombre(s)",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "family_names",
+          "type": "varchar(150)",
+          "spec": "varchar(150) DEFAULT NULL",
+          "meaning": "Apellidos",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "birth_date",
+          "type": "date",
+          "spec": "date DEFAULT NULL",
+          "meaning": "Fecha de nacimiento",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "gender",
+          "type": "enum('Hombre','Mujer','Prefiero no decirlo')",
+          "spec": "enum('Hombre','Mujer','Prefiero no decirlo') NOT NULL DEFAULT 'Prefiero no decirlo'",
+          "meaning": "Género registrado",
+          "nullable": false,
+          "auto": false,
+          "default": "'Prefiero no decirlo'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "country_code",
+          "type": "char(2)",
+          "spec": "char(2) DEFAULT NULL",
+          "meaning": "Código de país",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "phone",
+          "type": "varchar(25)",
+          "spec": "varchar(25) DEFAULT NULL",
+          "meaning": "Número telefónico",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": true,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": true,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "person_ID"
+      ],
+      "unique": [
+        [
+          "user_ID"
+        ]
+      ],
+      "foreign": [
+        {
+          "constraint": "fk_people_users",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tb_products",
+      "name": "tb_products",
+      "meaning": "Catálogo de productos",
+      "count": 5008,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "SKU",
+          "type": "varchar(50)",
+          "spec": "varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Código del producto",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "name",
+          "type": "varchar(250)",
+          "spec": "varchar(250) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Nombre visible",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "spec": "text CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci",
+          "meaning": "Descripción o detalle",
+          "nullable": true,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "current_price",
+          "type": "decimal(10,2)",
+          "spec": "decimal(10,2) NOT NULL DEFAULT '0.00'",
+          "meaning": "Dato de current price asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": "'0.00'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "current_stock",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL DEFAULT '0'",
+          "meaning": "Dato de current stock asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": "'0'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": true,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "SKU"
+        ]
+      ],
+      "foreign": [],
+      "checks": []
+    },
+    {
+      "id": "tb_user_addresses",
+      "name": "tb_user_addresses",
+      "meaning": "Direcciones de entrega",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_addresses_users",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "address_label",
+          "type": "varchar(100)",
+          "spec": "varchar(100) NOT NULL",
+          "meaning": "Nombre de la dirección",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "recipient_name",
+          "type": "varchar(150)",
+          "spec": "varchar(150) DEFAULT NULL",
+          "meaning": "Persona que recibe",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "recipient_phone",
+          "type": "varchar(25)",
+          "spec": "varchar(25) DEFAULT NULL",
+          "meaning": "Teléfono de quien recibe",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "delivery_instructions",
+          "type": "varchar(500)",
+          "spec": "varchar(500) DEFAULT NULL",
+          "meaning": "Indicaciones de entrega",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "latitude",
+          "type": "decimal(10,7)",
+          "spec": "decimal(10,7) DEFAULT NULL",
+          "meaning": "Coordenada de latitud",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "longitude",
+          "type": "decimal(10,7)",
+          "spec": "decimal(10,7) DEFAULT NULL",
+          "meaning": "Coordenada de longitud",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "is_default",
+          "type": "tinyint(1)",
+          "spec": "tinyint(1) NOT NULL DEFAULT '0'",
+          "meaning": "Indica si es la opción predeterminada",
+          "nullable": false,
+          "auto": false,
+          "default": "'0'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "fk_addresses_users",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": [
+        "(((`latitude` is null) and (`longitude` is null)) or ((`latitude` is not null) and (`longitude` is not null)))",
+        "(`latitude` between -(90) and 90)",
+        "(`longitude` between -(180) and 180)"
+      ]
+    },
+    {
+      "id": "tb_users",
+      "name": "tb_users",
+      "meaning": "Cuentas de usuario",
+      "count": 7,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "email",
+          "type": "varchar(100)",
+          "spec": "varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Correo electrónico",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "nick",
+          "type": "varchar(50)",
+          "spec": "varchar(50) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Alias de usuario",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "password",
+          "type": "varchar(255)",
+          "spec": "varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL",
+          "meaning": "Credencial de acceso protegida",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_login",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL",
+          "meaning": "Dato de last login asociado con el registro.",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": true,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "email"
+        ],
+        [
+          "nick"
+        ]
+      ],
+      "foreign": [],
+      "checks": []
+    },
+    {
+      "id": "tbc_categories",
+      "name": "tbc_categories",
+      "meaning": "Categorías de productos",
+      "count": 100,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int",
+          "spec": "int NOT NULL",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "name",
+          "type": "varchar(100)",
+          "spec": "varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL",
+          "meaning": "Nombre visible",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "description",
+          "type": "varchar(255)",
+          "spec": "varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci DEFAULT NULL",
+          "meaning": "Descripción o detalle",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "sup_id_category",
+          "type": "int",
+          "spec": "int DEFAULT NULL",
+          "meaning": "Categoría superior",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_category_parent",
+            "columns": [
+              "sup_id_category"
+            ],
+            "table": "tbc_categories",
+            "targets": [
+              "ID"
+            ],
+            "delete": "SET NULL",
+            "update": "CASCADE"
+          }
+        },
+        {
+          "name": "status",
+          "type": "int",
+          "spec": "int DEFAULT NULL",
+          "meaning": "Indica si está activo",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "fk_category_parent",
+          "columns": [
+            "sup_id_category"
+          ],
+          "table": "tbc_categories",
+          "targets": [
+            "ID"
+          ],
+          "delete": "SET NULL",
+          "update": "CASCADE"
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tbc_payment_methods_types",
+      "name": "tbc_payment_methods_types",
+      "meaning": "Tipos de pago",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "code",
+          "type": "varchar(30)",
+          "spec": "varchar(30) NOT NULL",
+          "meaning": "Dato de code asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "description",
+          "type": "text",
+          "spec": "text NOT NULL",
+          "meaning": "Descripción o detalle",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "code"
+        ]
+      ],
+      "foreign": [],
+      "checks": []
+    },
+    {
+      "id": "tbd_address_components",
+      "name": "tbd_address_components",
+      "meaning": "Componentes de dirección",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "address_ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned NOT NULL",
+          "meaning": "Dirección relacionada",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": {
+            "constraint": "fk_component_address",
+            "columns": [
+              "address_ID"
+            ],
+            "table": "tb_user_addresses",
+            "targets": [
+              "ID"
+            ],
+            "delete": "RESTRICT",
+            "update": ""
+          }
+        },
+        {
+          "name": "value",
+          "type": "varchar(255)",
+          "spec": "varchar(255) NOT NULL",
+          "meaning": "Valor guardado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "component_type",
+          "type": "varchar(50)",
+          "spec": "varchar(50) NOT NULL",
+          "meaning": "Tipo de componente",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "address_sup_ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned DEFAULT NULL",
+          "meaning": "Componente superior",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_component_parent",
+            "columns": [
+              "address_ID",
+              "address_sup_ID"
+            ],
+            "table": "tbd_address_components",
+            "targets": [
+              "address_ID",
+              "ID"
+            ],
+            "delete": "RESTRICT",
+            "update": ""
+          }
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "address_ID",
+          "ID"
+        ]
+      ],
+      "foreign": [
+        {
+          "constraint": "fk_component_address",
+          "columns": [
+            "address_ID"
+          ],
+          "table": "tb_user_addresses",
+          "targets": [
+            "ID"
+          ],
+          "delete": "RESTRICT",
+          "update": ""
+        },
+        {
+          "constraint": "fk_component_parent",
+          "columns": [
+            "address_ID",
+            "address_sup_ID"
+          ],
+          "table": "tbd_address_components",
+          "targets": [
+            "address_ID",
+            "ID"
+          ],
+          "delete": "RESTRICT",
+          "update": ""
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tbd_carts_items",
+      "name": "tbd_carts_items",
+      "meaning": "Artículos del carrito",
+      "count": 0,
+      "columns": [
+        {
+          "name": "cart_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Carrito relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_carts_items_ibfk_1",
+            "columns": [
+              "cart_ID"
+            ],
+            "table": "tb_carts",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "provider_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Dato de provider ID asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_carts_items_ibfk_2",
+            "columns": [
+              "provider_ID"
+            ],
+            "table": "tbd_products_users_providers",
+            "targets": [
+              "user_ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Producto relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_carts_items_ibfk_3",
+            "columns": [
+              "product_ID"
+            ],
+            "table": "tbd_products_users_providers",
+            "targets": [
+              "product_ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "quantity",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL DEFAULT '1'",
+          "meaning": "Cantidad de unidades",
+          "nullable": false,
+          "auto": false,
+          "default": "'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "cart_ID",
+        "provider_ID",
+        "product_ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "tbd_carts_items_ibfk_1",
+          "columns": [
+            "cart_ID"
+          ],
+          "table": "tb_carts",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "tbd_carts_items_ibfk_2",
+          "columns": [
+            "provider_ID"
+          ],
+          "table": "tbd_products_users_providers",
+          "targets": [
+            "user_ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "tbd_carts_items_ibfk_3",
+          "columns": [
+            "product_ID"
+          ],
+          "table": "tbd_products_users_providers",
+          "targets": [
+            "product_ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": [
+        "(`quantity` > 0)"
+      ]
+    },
+    {
+      "id": "tbd_order_items",
+      "name": "tbd_order_items",
+      "meaning": "Artículos del pedido",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "seller_order_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Dato de seller order ID asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_order_items_ibfk_1",
+            "columns": [
+              "seller_order_ID"
+            ],
+            "table": "tb_buyer_orders",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Producto relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_order_items_ibfk_2",
+            "columns": [
+              "product_ID"
+            ],
+            "table": "tbd_products_users_providers",
+            "targets": [
+              "product_ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "provider_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Dato de provider ID asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_order_items_ibfk_3",
+            "columns": [
+              "provider_ID"
+            ],
+            "table": "tbd_products_users_providers",
+            "targets": [
+              "user_ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "product_name",
+          "type": "varchar(255)",
+          "spec": "varchar(255) NOT NULL",
+          "meaning": "Dato de product name asociado con el registro.",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "quantity",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Cantidad de unidades",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "unit_price",
+          "type": "decimal(12,2)",
+          "spec": "decimal(12,2) NOT NULL",
+          "meaning": "Precio por unidad",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "subtotal",
+          "type": "decimal(12,2)",
+          "spec": "decimal(12,2) GENERATED ALWAYS AS ((`quantity` * `unit_price`)) STORED",
+          "meaning": "Importe antes de cargos",
+          "nullable": true,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "tbd_order_items_ibfk_1",
+          "columns": [
+            "seller_order_ID"
+          ],
+          "table": "tb_buyer_orders",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "tbd_order_items_ibfk_2",
+          "columns": [
+            "product_ID"
+          ],
+          "table": "tbd_products_users_providers",
+          "targets": [
+            "product_ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "tbd_order_items_ibfk_3",
+          "columns": [
+            "provider_ID"
+          ],
+          "table": "tbd_products_users_providers",
+          "targets": [
+            "user_ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": [
+        "(`quantity` > 0)",
+        "(`unit_price` >= 0)"
+      ]
+    },
+    {
+      "id": "tbd_products_categories",
+      "name": "tbd_products_categories",
+      "meaning": "Asignación de categorías",
+      "count": 4993,
+      "columns": [
+        {
+          "name": "product_ID",
+          "type": "int",
+          "spec": "int NOT NULL",
+          "meaning": "Producto relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "category_ID",
+          "type": "int",
+          "spec": "int NOT NULL",
+          "meaning": "Categoría relacionada",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_prodcat_category",
+            "columns": [
+              "category_ID"
+            ],
+            "table": "tbc_categories",
+            "targets": [
+              "ID"
+            ],
+            "delete": "CASCADE",
+            "update": "CASCADE"
+          }
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "product_ID",
+        "category_ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "fk_prodcat_category",
+          "columns": [
+            "category_ID"
+          ],
+          "table": "tbc_categories",
+          "targets": [
+            "ID"
+          ],
+          "delete": "CASCADE",
+          "update": "CASCADE"
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tbd_products_users_providers",
+      "name": "tbd_products_users_providers",
+      "meaning": "Proveedores y productos",
+      "count": 0,
+      "columns": [
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_user1",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Producto relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_products2",
+            "columns": [
+              "product_ID"
+            ],
+            "table": "tb_products",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "type_ownership",
+          "type": "enum('Owner','Reseller','Distributor')",
+          "spec": "enum('Owner','Reseller','Distributor') DEFAULT NULL",
+          "meaning": "Participación del proveedor",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "avalaible_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL",
+          "meaning": "Fecha de disponibilidad",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "user_ID",
+        "product_ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "fk_products2",
+          "columns": [
+            "product_ID"
+          ],
+          "table": "tb_products",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "fk_user1",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tbd_user_payment_methods",
+      "name": "tbd_user_payment_methods",
+      "meaning": "Métodos de pago de usuario",
+      "count": 0,
+      "columns": [
+        {
+          "name": "ID",
+          "type": "bigint unsigned",
+          "spec": "bigint unsigned NOT NULL AUTO_INCREMENT",
+          "meaning": "Identificador único",
+          "nullable": false,
+          "auto": true,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_user_payment_methods_ibfk_1",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "payment_method_type_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Tipo de pago relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": {
+            "constraint": "tbd_user_payment_methods_ibfk_2",
+            "columns": [
+              "payment_method_type_ID"
+            ],
+            "table": "tbc_payment_methods_types",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "provider",
+          "type": "varchar(60)",
+          "spec": "varchar(60) NOT NULL",
+          "meaning": "Proveedor del servicio",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "provider_method_ref",
+          "type": "varchar(255)",
+          "spec": "varchar(255) NOT NULL",
+          "meaning": "Referencia del método en el proveedor",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": true,
+          "fk": null
+        },
+        {
+          "name": "label",
+          "type": "varchar(100)",
+          "spec": "varchar(100) DEFAULT NULL",
+          "meaning": "Nombre corto",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_four",
+          "type": "char(4)",
+          "spec": "char(4) DEFAULT NULL",
+          "meaning": "Últimos cuatro dígitos",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "is_default",
+          "type": "tinyint(1)",
+          "spec": "tinyint(1) NOT NULL DEFAULT '0'",
+          "meaning": "Indica si es la opción predeterminada",
+          "nullable": false,
+          "auto": false,
+          "default": "'0'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": true,
+          "auto": false,
+          "default": "NULL",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "ID"
+      ],
+      "unique": [
+        [
+          "provider",
+          "provider_method_ref"
+        ]
+      ],
+      "foreign": [
+        {
+          "constraint": "tbd_user_payment_methods_ibfk_1",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "tbd_user_payment_methods_ibfk_2",
+          "columns": [
+            "payment_method_type_ID"
+          ],
+          "table": "tbc_payment_methods_types",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": []
+    },
+    {
+      "id": "tbd_users_wishlist_products",
+      "name": "tbd_users_wishlist_products",
+      "meaning": "Lista de favoritos",
+      "count": 0,
+      "columns": [
+        {
+          "name": "user_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Usuario relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_user2",
+            "columns": [
+              "user_ID"
+            ],
+            "table": "tb_users",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "product_ID",
+          "type": "int unsigned",
+          "spec": "int unsigned NOT NULL",
+          "meaning": "Producto relacionado",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": true,
+          "unique": false,
+          "fk": {
+            "constraint": "fk_products3",
+            "columns": [
+              "product_ID"
+            ],
+            "table": "tb_products",
+            "targets": [
+              "ID"
+            ],
+            "delete": "",
+            "update": ""
+          }
+        },
+        {
+          "name": "status",
+          "type": "bit(1)",
+          "spec": "bit(1) NOT NULL DEFAULT b'1'",
+          "meaning": "Indica si está activo",
+          "nullable": false,
+          "auto": false,
+          "default": "b'1'",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "creation_date",
+          "type": "datetime",
+          "spec": "datetime NOT NULL DEFAULT CURRENT_TIMESTAMP",
+          "meaning": "Fecha y hora de creación",
+          "nullable": false,
+          "auto": false,
+          "default": "CURRENT_TIMESTAMP",
+          "pk": false,
+          "unique": false,
+          "fk": null
+        },
+        {
+          "name": "last_update",
+          "type": "datetime",
+          "spec": "datetime NOT NULL ON UPDATE CURRENT_TIMESTAMP",
+          "meaning": "Fecha de última modificación",
+          "nullable": false,
+          "auto": false,
+          "default": null,
+          "pk": false,
+          "unique": false,
+          "fk": null
+        }
+      ],
+      "primary": [
+        "user_ID",
+        "product_ID"
+      ],
+      "unique": [],
+      "foreign": [
+        {
+          "constraint": "fk_products3",
+          "columns": [
+            "product_ID"
+          ],
+          "table": "tb_products",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        },
+        {
+          "constraint": "fk_user2",
+          "columns": [
+            "user_ID"
+          ],
+          "table": "tb_users",
+          "targets": [
+            "ID"
+          ],
+          "delete": "",
+          "update": ""
+        }
+      ],
+      "checks": []
+    }
+  ],
+  "relations": [
+    {
+      "id": "rel_tb_buyer_orders_seller_ID",
+      "from": "tb_buyer_orders",
+      "to": "tb_users",
+      "fromTable": "tb_buyer_orders",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "seller_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "seller_ID → ID"
+    },
+    {
+      "id": "rel_tb_carts_user_ID",
+      "from": "tb_carts",
+      "to": "tb_users",
+      "fromTable": "tb_carts",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "one",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    },
+    {
+      "id": "rel_tb_people_user_ID",
+      "from": "tb_people",
+      "to": "tb_users",
+      "fromTable": "tb_people",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "one",
+      "toCardinality": "one",
+      "optional": true,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    },
+    {
+      "id": "rel_tb_user_addresses_user_ID",
+      "from": "tb_user_addresses",
+      "to": "tb_users",
+      "fromTable": "tb_user_addresses",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    },
+    {
+      "id": "rel_tbc_categories_sup_id_category",
+      "from": "tbc_categories",
+      "to": "tbc_categories",
+      "fromTable": "tbc_categories",
+      "toTable": "tbc_categories",
+      "fromColumns": [
+        "sup_id_category"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": true,
+      "identifying": false,
+      "onDelete": "SET NULL",
+      "onUpdate": "CASCADE",
+      "label": "sup_id_category → ID"
+    },
+    {
+      "id": "rel_tbd_address_components_address_ID",
+      "from": "tbd_address_components",
+      "to": "tb_user_addresses",
+      "fromTable": "tbd_address_components",
+      "toTable": "tb_user_addresses",
+      "fromColumns": [
+        "address_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "RESTRICT",
+      "onUpdate": "",
+      "label": "address_ID → ID"
+    },
+    {
+      "id": "rel_tbd_address_components_address_ID_address_sup_ID",
+      "from": "tbd_address_components",
+      "to": "tbd_address_components",
+      "fromTable": "tbd_address_components",
+      "toTable": "tbd_address_components",
+      "fromColumns": [
+        "address_ID",
+        "address_sup_ID"
+      ],
+      "toColumns": [
+        "address_ID",
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": true,
+      "identifying": false,
+      "onDelete": "RESTRICT",
+      "onUpdate": "",
+      "label": "address_ID, address_sup_ID → address_ID, ID"
+    },
+    {
+      "id": "rel_tbd_carts_items_cart_ID",
+      "from": "tbd_carts_items",
+      "to": "tb_carts",
+      "fromTable": "tbd_carts_items",
+      "toTable": "tb_carts",
+      "fromColumns": [
+        "cart_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "cart_ID → ID"
+    },
+    {
+      "id": "rel_tbd_carts_items_provider_ID",
+      "from": "tbd_carts_items",
+      "to": "tbd_products_users_providers",
+      "fromTable": "tbd_carts_items",
+      "toTable": "tbd_products_users_providers",
+      "fromColumns": [
+        "provider_ID"
+      ],
+      "toColumns": [
+        "user_ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "provider_ID → user_ID"
+    },
+    {
+      "id": "rel_tbd_carts_items_product_ID",
+      "from": "tbd_carts_items",
+      "to": "tbd_products_users_providers",
+      "fromTable": "tbd_carts_items",
+      "toTable": "tbd_products_users_providers",
+      "fromColumns": [
+        "product_ID"
+      ],
+      "toColumns": [
+        "product_ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "product_ID → product_ID"
+    },
+    {
+      "id": "rel_tbd_order_items_seller_order_ID",
+      "from": "tbd_order_items",
+      "to": "tb_buyer_orders",
+      "fromTable": "tbd_order_items",
+      "toTable": "tb_buyer_orders",
+      "fromColumns": [
+        "seller_order_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "seller_order_ID → ID"
+    },
+    {
+      "id": "rel_tbd_order_items_product_ID",
+      "from": "tbd_order_items",
+      "to": "tbd_products_users_providers",
+      "fromTable": "tbd_order_items",
+      "toTable": "tbd_products_users_providers",
+      "fromColumns": [
+        "product_ID"
+      ],
+      "toColumns": [
+        "product_ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "product_ID → product_ID"
+    },
+    {
+      "id": "rel_tbd_order_items_provider_ID",
+      "from": "tbd_order_items",
+      "to": "tbd_products_users_providers",
+      "fromTable": "tbd_order_items",
+      "toTable": "tbd_products_users_providers",
+      "fromColumns": [
+        "provider_ID"
+      ],
+      "toColumns": [
+        "user_ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "provider_ID → user_ID"
+    },
+    {
+      "id": "rel_tbd_products_categories_category_ID",
+      "from": "tbd_products_categories",
+      "to": "tbc_categories",
+      "fromTable": "tbd_products_categories",
+      "toTable": "tbc_categories",
+      "fromColumns": [
+        "category_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "CASCADE",
+      "onUpdate": "CASCADE",
+      "label": "category_ID → ID"
+    },
+    {
+      "id": "rel_tbd_products_users_providers_product_ID",
+      "from": "tbd_products_users_providers",
+      "to": "tb_products",
+      "fromTable": "tbd_products_users_providers",
+      "toTable": "tb_products",
+      "fromColumns": [
+        "product_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "product_ID → ID"
+    },
+    {
+      "id": "rel_tbd_products_users_providers_user_ID",
+      "from": "tbd_products_users_providers",
+      "to": "tb_users",
+      "fromTable": "tbd_products_users_providers",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    },
+    {
+      "id": "rel_tbd_user_payment_methods_user_ID",
+      "from": "tbd_user_payment_methods",
+      "to": "tb_users",
+      "fromTable": "tbd_user_payment_methods",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    },
+    {
+      "id": "rel_tbd_user_payment_methods_payment_method_type_ID",
+      "from": "tbd_user_payment_methods",
+      "to": "tbc_payment_methods_types",
+      "fromTable": "tbd_user_payment_methods",
+      "toTable": "tbc_payment_methods_types",
+      "fromColumns": [
+        "payment_method_type_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": false,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "payment_method_type_ID → ID"
+    },
+    {
+      "id": "rel_tbd_users_wishlist_products_product_ID",
+      "from": "tbd_users_wishlist_products",
+      "to": "tb_products",
+      "fromTable": "tbd_users_wishlist_products",
+      "toTable": "tb_products",
+      "fromColumns": [
+        "product_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "product_ID → ID"
+    },
+    {
+      "id": "rel_tbd_users_wishlist_products_user_ID",
+      "from": "tbd_users_wishlist_products",
+      "to": "tb_users",
+      "fromTable": "tbd_users_wishlist_products",
+      "toTable": "tb_users",
+      "fromColumns": [
+        "user_ID"
+      ],
+      "toColumns": [
+        "ID"
+      ],
+      "fromCardinality": "many",
+      "toCardinality": "one",
+      "optional": false,
+      "identifying": true,
+      "onDelete": "",
+      "onUpdate": "",
+      "label": "user_ID → ID"
+    }
+  ]
+}

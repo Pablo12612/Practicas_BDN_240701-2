@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "erd",
+  "quality": "standard",
+  "specification": {
+    "path": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\candidate.json",
+    "sha256": "a8142623cb197afea37696650ef73d3e3feae42a9f72fa43595021e002ee9560",
+    "bytes": 12594
+  },
+  "artifact": {
+    "path": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.html",
+    "sha256": "f3dcb44b34da74def5d737380b4a197b7ff904ab1b9dcbfd7fb7f77f4a9eb264",
+    "bytes": 858800
+  },
+  "gates": {
+    "validate": "pass",
+    "deliver": "pass",
+    "check": "pass",
+    "browser-check": "fail"
+  },
+  "failedStage": "browser-check",
+  "diagnostics": [
+    {
+      "code": "viewer/projected-text-readability",
+      "severity": "error",
+      "message": "Projected context text is below the readability floor at 1440x900.",
+      "subject": {
+        "artifact": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.html",
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "theme": "light"
+        }
+      },
+      "evidence": {
+        "text": "PK",
+        "detail": "context",
+        "owner": {
+          "kind": "node",
+          "id": "tb_users"
+        },
+        "minimumProjectedNodeTextPx": 5.909268292682927,
+        "minimumRequiredNodeTextPx": 6
+      },
+      "supportedFixes": [
+        "increase projected node text to at least 6px at 1440x900, then rerun browser-check"
+      ]
+    }
+  ],
+  "diagnosticSummary": {
+    "total": 1,
+    "shown": 1,
+    "truncated": false
+  },
+  "evidence": {
+    "receipt": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.finalize.json",
+    "summaryReceipt": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.finalize-summary.json",
+    "browserCheckReceipt": "C:\\Users\\PC-28\\Desktop\\pmg\\Practicas_BDN_240701-2\\Practica02\\backups\\.archify\\erd-db-test-7b-20261015-131200\\eerd-db-test-7b.browser-check.json"
+  },
+  "update": {
+    "status": "current",
+    "installedVersion": "3.1.0",
+    "availableVersion": "3.1.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-15T19:13:07.446Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  },
+  "visualReview": "not-requested",
+  "durationMs": 2744
+}

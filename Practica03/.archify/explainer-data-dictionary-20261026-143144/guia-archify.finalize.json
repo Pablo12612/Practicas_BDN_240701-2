@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "running",
+  "type": "explainer",
+  "quality": "showcase",
+  "startedAt": "2026-10-26T20:32:20.071Z",
+  "specification": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\explainer-data-dictionary-20261026-143144\\candidate.archify.md",
+    "sha256": "0bd158f45780a9ccd832f7a7d9e70c78bc3a1f61d8dc8c558be994d94738a0d8",
+    "bytes": 1849
+  },
+  "artifact": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\explainer-data-dictionary-20261026-143144\\guia-archify.html"
+  },
+  "stages": {
+    "browser-check": {
+      "status": "not-run",
+      "execution": "not-requested"
+    }
+  },
+  "browserCheck": {
+    "requested": false,
+    "ran": false
+  },
+  "diagnostics": [],
+  "evidence": {
+    "receipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\explainer-data-dictionary-20261026-143144\\guia-archify.finalize.json",
+    "summaryReceipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\explainer-data-dictionary-20261026-143144\\guia-archify.finalize-summary.json"
+  },
+  "visualReview": "not-requested"
+}

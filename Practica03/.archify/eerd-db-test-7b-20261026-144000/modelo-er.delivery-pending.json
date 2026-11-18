@@ -1,0 +1,8 @@
+{
+  "schemaVersion": 1,
+  "command": "deliver",
+  "status": "pending",
+  "receiptId": "7aeb6466-9818-4ece-a948-f8bae7c1f5be",
+  "input": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\candidate.erd.json",
+  "output": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.html"
+}

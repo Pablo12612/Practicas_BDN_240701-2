@@ -1,0 +1,109 @@
+{
+  "schemaVersion": 1,
+  "ok": false,
+  "command": "finalize",
+  "status": "fail",
+  "type": "erd",
+  "quality": "standard",
+  "startedAt": "2026-10-26T21:04:19.249Z",
+  "specification": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\candidate.erd.json",
+    "sha256": "21f49d8b0bb1aa85cea42be7dd34ccef3efdb8917d23cdaff0e3c8c100b5c59d",
+    "bytes": 22935
+  },
+  "artifact": {
+    "path": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.html"
+  },
+  "stages": {
+    "validate": {
+      "status": "fail",
+      "exitCode": 1,
+      "durationMs": null,
+      "command": [
+        "C:\\Program Files\\nodejs\\node.exe",
+        "C:\\Users\\pmgjk\\.agents\\skills\\archify\\bin\\archify.mjs",
+        "deliver",
+        "erd",
+        "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\candidate.erd.json",
+        "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.html",
+        "--quality",
+        "standard",
+        "--json"
+      ],
+      "receipt": {
+        "schemaVersion": 1,
+        "ok": false,
+        "command": "deliver",
+        "receiptId": "7aeb6466-9818-4ece-a948-f8bae7c1f5be",
+        "stage": "render",
+        "type": "erd",
+        "input": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\candidate.erd.json",
+        "output": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.html",
+        "error": "Entity-relationship layout validation failed:\n- Label \"user_ID → ID\" overlaps entity \"tb_user_addresses\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [195, 723, 77, 14]\n  entity \"tb_user_addresses\" rect: [95, 406, 302, 324]\n  Suggested fix: set labelAt [234, 744] or set labelDx 1 with labelDy 11 (below); or set labelAt [234, 398] or set labelDx 1 with labelDy -335 (above)",
+        "diagnostics": [
+          {
+            "code": "layout/constraint",
+            "severity": "error",
+            "message": "Label \"user_ID → ID\" overlaps entity \"tb_user_addresses\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [195, 723, 77, 14]\n  entity \"tb_user_addresses\" rect: [95, 406, 302, 324]\n  Suggested fix: set labelAt [234, 744] or set labelDx 1 with labelDy 11 (below); or set labelAt [234, 398] or set labelDx 1 with labelDy -335 (above)",
+            "subject": {
+              "diagramType": "erd"
+            },
+            "evidence": {},
+            "supportedFixes": []
+          }
+        ],
+        "provenance": "absent",
+        "update": {
+          "status": "unavailable",
+          "installedVersion": null,
+          "availableVersion": null,
+          "releaseNotes": null,
+          "checkedAt": null,
+          "source": null,
+          "noticeRequired": false,
+          "noticeText": null,
+          "reason": "disabled"
+        }
+      },
+      "execution": "embedded-in-deliver"
+    },
+    "deliver": {
+      "status": "not-run",
+      "execution": "blocked-by-validate"
+    }
+  },
+  "browserCheck": {
+    "requested": true,
+    "ran": false
+  },
+  "diagnostics": [
+    {
+      "code": "layout/constraint",
+      "severity": "error",
+      "message": "Label \"user_ID → ID\" overlaps entity \"tb_user_addresses\" — adjust labelDx/labelDy/labelSegment or set labelAt.\n  label rect: [195, 723, 77, 14]\n  entity \"tb_user_addresses\" rect: [95, 406, 302, 324]\n  Suggested fix: set labelAt [234, 744] or set labelDx 1 with labelDy 11 (below); or set labelAt [234, 398] or set labelDx 1 with labelDy -335 (above)",
+      "subject": {
+        "diagramType": "erd"
+      },
+      "evidence": {},
+      "supportedFixes": []
+    }
+  ],
+  "evidence": {
+    "receipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.finalize.json",
+    "summaryReceipt": "C:\\Users\\pmgjk\\Desktop\\Pabloo\\Practicas_BDN_240701-2\\Practica02\\Practicas03\\.archify\\eerd-db-test-7b-20261026-144000\\modelo-er.finalize-summary.json"
+  },
+  "visualReview": "not-requested",
+  "failedStage": "validate",
+  "finishedAt": "2026-10-26T21:04:21.643Z",
+  "durationMs": 2394,
+  "update": {
+    "status": "current",
+    "installedVersion": "3.2.0",
+    "availableVersion": "3.2.0",
+    "releaseNotes": null,
+    "checkedAt": "2026-10-26T21:03:15.953Z",
+    "source": "cache",
+    "noticeRequired": false,
+    "noticeText": null
+  }
+}
